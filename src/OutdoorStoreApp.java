@@ -1,6 +1,9 @@
 import Controllers.CategoryController;
+import Controllers.ItemController;
 import Models.Category;
+import Models.Item;
 import Views.CategoryView;
+import Views.ItemView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,14 +34,48 @@ public class OutdoorStoreApp extends JFrame {
     private CategoryView categoryView;
     private CategoryController categoryController;
 
+    // Items Tab Attributes
+    private JLabel itemFormTitle;
+    private JTextField itemNameField;
+    private JLabel itemNameLabel;
+    private JLabel itemCategoryLabel;
+    private JComboBox itemCategoryField;
+    private JLabel itemSizeLabel;
+    private JTextField itemSizeField;
+    private JLabel itemPriceLabel;
+    private JTextField itemPriceField;
+    private JLabel itemStockLabel;
+    private JTextField itemStockField;
+    private JButton submitItemButton;
+    private JScrollPane itemsTableSP;
+    private JTable itemsTable;
+    private ItemView itemView;
+    private ItemController itemController;
+
     public OutdoorStoreApp() {
         // Initialize database connection
         this.databaseConnection();
 
-        // Initialize categories tab needs components
+        // Initialize Categories tab needs components
         this.categoryView = new CategoryView(categoryFormTitle, categoryNameLabel, categoryNameField, categoryIdField, submitCategoryButton, categoriesTableSP, categoriesTable);
         this.categoryController = new CategoryController(this.categoryView, new Category(this.dbConnection));
         this.categoryView.setCategoryController(this.categoryController);
+
+        // Initialize Items tab needs components
+        this.itemView = new ItemView(
+                this.itemNameField,
+                this.itemCategoryField,
+                this.itemSizeField,
+                this.itemPriceField,
+                this.itemStockField,
+                this.submitItemButton,
+                this.itemsTable
+        );
+        this.itemController = new ItemController(
+                this.itemView,
+                new Item(this.dbConnection)
+        );
+        this.itemView.setItemController(this.itemController);
 
         // Initialize setup GUI components
         this.initFont();
@@ -59,6 +96,7 @@ public class OutdoorStoreApp extends JFrame {
 
     private void initFont() {
         this.categoryFormTitle.setFont(new Font("", Font.PLAIN, 14));
+        this.itemFormTitle.setFont(new Font("", Font.PLAIN, 14));
     }
 
     private void databaseConnection() {

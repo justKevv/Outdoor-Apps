@@ -40,7 +40,7 @@ public class Category extends Model {
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("nama");
-                categories.add(new Category(id, name));  // Menambahkan objek Category ke dalam List<Object>
+                categories.add(new Category(id, name));
             }
         } catch (SQLException error) {
             System.out.println("Error occurred when getting kategori data: " + error.getMessage());
