@@ -8,6 +8,10 @@ public class Category extends Model {
     private int id;
     private String name;
 
+    public Category() {
+
+    }
+
     public Category(Connection dbConnection) {
         super.setDbConnection(dbConnection);
     }

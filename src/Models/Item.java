@@ -1,9 +1,6 @@
 package Models;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,5 +75,33 @@ public class Item extends Model {
         }
 
         return items;
+    }
+
+    @Override
+    public boolean create(String[] data) {
+        if (super.getDbConnection() == null) {
+            System.out.println("Database connection is null from Model.");
+            return false;
+        }
+
+        String query = "INSERT INTO barang(id_kategori, nama, ukuran, harga, stok) VALUES(?, ?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = super.getDbConnection().prepareStatement(query)) {
+            preparedStatement.setString(1, data[0]);
+            preparedStatement.setString(2, data[1]);
+            preparedStatement.setString(3, data[2]);
+            preparedStatement.setString(4, data[3]);
+            preparedStatement.setString(5, data[4]);
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException error) {
+            System.out.println("Error occurred when inserting barang data: " + error.getMessage());
+        }
+
+        return false;
     }
 }

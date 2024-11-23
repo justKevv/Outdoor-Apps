@@ -69,13 +69,16 @@ public class OutdoorStoreApp extends JFrame {
                 this.itemPriceField,
                 this.itemStockField,
                 this.submitItemButton,
-                this.itemsTable
+                this.itemsTable,
+                new Category(this.dbConnection)
         );
         this.itemController = new ItemController(
                 this.itemView,
                 new Item(this.dbConnection)
         );
-        this.itemView.setItemController(this.itemController);
+        this.itemView.setItemController(
+                this.itemController
+        );
 
         // Initialize setup GUI components
         this.initFont();
