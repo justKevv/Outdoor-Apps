@@ -337,9 +337,9 @@ public class Item extends javax.swing.JPanel {
         String keyword = inputItem.getText().trim();
         if (!keyword.isEmpty()) {
             try (Connection conn = Database.getConnection()) {
-                String query = "SELECT * FROM barang WHERE nama LIKE ?";
+                String query = "SELECT * FROM barang WHERE id = ?";
                 try (PreparedStatement stmt = conn.prepareStatement(query)) {
-                    stmt.setString(1, "%" + keyword + "%");
+                    stmt.setString(1,keyword);
                     ResultSet rs = stmt.executeQuery();
 
                     if (rs.next()) {
